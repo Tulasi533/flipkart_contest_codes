@@ -1,0 +1,117 @@
+### Wave Array
+# Problem
+
+Given a sorted array arr[] of distinct integers. Modify the array to look like a wave. In other words, arrange the elements into a sequence such that a1 >= a2 <= a3 >= a4 <= a5.....
+Note: The converted array must be the lexicographically smallest wave array.
+
+# Sample Input and Output
+
+  Input:
+  N = 5
+  arr[] = {1,2,3,4,5}
+  Output: 2 1 4 3 5
+  Explanation: Array elements after 
+  sorting it in wave form are 
+  2 1 4 3 5.
+  
+  Input:
+  N = 6
+  arr[] = {2,4,7,8,9,10}
+  Output: 4 2 8 7 10 9
+  Explanation: Array elements after 
+  sorting it in wave form are 
+  4 2 8 7 10 9.
+  
+# Source Code (Python)
+
+ class Solution:
+    def convertToWave(self, arr, N):
+        # code here
+        temp = 0
+        if(N%2==0):
+            for i in range(0,N,2):
+                temp = arr[i]
+                arr[i] = arr[i+1]
+                arr[i+1] = temp
+        else:
+            for i in range(0,N-1,2):
+                temp = arr[i]
+                arr[i] = arr[i+1]
+                arr[i+1] = temp
+                
+### Strange Matrix
+
+* Not solved *
+
+### Connect Words
+# Problem
+ 
+ Given two distinct words start and target, and a set denoting a dictionary of unique words of equal lengths. Find the length of the shortest transformation sequence from start to target.
+  Keep the following conditions in mind:
+
+  A word can only consist of lowercase characters.
+  Only one letter can be changed in each transformation.
+  Each transformed word must exist in the dictionary. 
+  The starting word may not exist in the dictionary.
+  Target will always be in the dictionary otherwise the path is not possible and you should return 0.
+  
+ # Sample Input and Output
+ 
+  Input:
+  D={"poon","plee","same","poie","plea","plie","poin"}
+  start="toon"
+  target="plea"
+  Output: 7
+  Explanation:
+  The length of the smallest transformation sequence
+  from toon to plea is 7 i.e. toon -> poon -> poin ->
+  poie -> plie -> plee -> plea
+
+  Input:
+  D= {"aaa", "aab","abc"} 
+  start="aaa"
+  target="aab"
+  Output: 2
+  Explanation:
+  The length of the smallest transformation 
+  sequence from aaa to aab is 2 i.e. aaa -> aab
+  
+ # Source Code (Java)
+ 
+  public class Solution {
+    public int wordLadderLength(String start, String target, Set<String> D) {
+        // code here
+        if(!D.contains(target)){
+            return 0;
+        }
+        Queue<String>Q = new LinkedList<>();
+        int level = 0;
+        Q.add(start);
+        while(!Q.isEmpty()){
+            level += 1;
+            int sizeQ = Q.size();
+            for(int i=0;i<sizeQ;i++){
+                char word[] = Q.peek().toCharArray();
+                Q.remove();
+                for(int j=0;j<word.length;j++){
+                    char org_char = word[j];
+                    for(char c='a';c<='z';c++){
+                        word[j] = c;
+                        if(String.valueOf(word).equals(target)){
+                            return level + 1;
+                        }
+                        if(!D.contains(String.valueOf(word))){
+                            continue;
+                        }
+                        else{
+                            D.remove(String.valueOf(word));
+                            Q.add(String.valueOf(word));
+                        }
+                    }
+                    word[j] = org_char;
+                }
+            }
+        }
+        return 0;
+    }
+}
