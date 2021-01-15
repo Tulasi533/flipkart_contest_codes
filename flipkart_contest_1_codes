@@ -1,0 +1,43 @@
+### Rearrange the digits
+# Problem
+
+Given a number N, find the smallest number which can be obtained by rearranging the digits of N. The generated number should not have any leading zeroes.
+
+# Sample Input and Output
+
+Input: N = 846903
+Output:304689
+
+Input: N = 55010
+Output:10055
+
+# Source Code (Python)
+
+class Solution:
+    def smallestnum (self,N):
+        L = list(N)
+        L1 = []
+        s = ""
+        for x in L:
+            L1.append(int(x))
+        L1 = sorted(L1)
+        p = 0
+        for x in range(len(L1)):
+            if(L1[x] == 0):
+                continue
+            else:
+                s += str(L1[x])
+                p = x+1
+                break
+        s += "0"*(L1.count(0))
+        for x in L1[p:]:
+            s += str(x)
+        return s
+
+### Mics and Jury 
+
+* Not solved *
+
+### Maximum Sum Component
+
+* Not solved *
